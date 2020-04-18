@@ -11,7 +11,7 @@ class RedisService(val jedisPool: JedisPool) {
     /**
      * 获取当个对象
      */
-    fun <T> get(prefix: KeyPrefix, key: String, clazz: Class<T>): T {
+    fun <T> get(prefix: KeyPrefix, key: String, clazz: Class<T>): T? {
         var jedis: Jedis? = null
         try {
             jedis = jedisPool.resource
@@ -90,7 +90,7 @@ class RedisService(val jedisPool: JedisPool) {
             Double::class -> string.toDouble()
             Float::class -> string.toFloat()
             String::class -> this
-            else -> JSON.parse(string)
+            else -> JSON.parseObject(string, clazz)
         } as T
     }
 

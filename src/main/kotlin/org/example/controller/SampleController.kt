@@ -32,8 +32,9 @@ class SampleController(val userService: UserService, val redisService: RedisServ
     @GetMapping("/tx")
     @ResponseBody
     fun tran(): String {
-        val res: Boolean = userService.tx()
-        return res.toString()
+        /*val res: Boolean = userService.tx()
+        return res.toString()*/
+        TODO()
     }
 
     @GetMapping("/redis/get/{key}")
