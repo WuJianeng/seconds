@@ -26,3 +26,7 @@ mvnw
 mvnw.cmd
 .mvn/
 
+
+# log 
+example.log
+example.log.1
