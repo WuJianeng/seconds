@@ -15,7 +15,10 @@ import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletResponse
 
 @Service
-class UserService(val userDao: UserDao, val redisService: RedisService) {
+class UserService(
+        val userDao: UserDao,
+        val redisService: RedisService
+) {
 
     fun getById(id: Long): User? {
         return userDao.getById(id)

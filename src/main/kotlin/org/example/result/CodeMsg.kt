@@ -37,7 +37,7 @@ data class CodeMsg private constructor(val code: Int, val msg: String) {
         val ORDER_NOT_EXIST = CodeMsg(500400, "订单不存在")
 
         //秒杀模块 5005XX
-        val SECKILL_OVER = CodeMsg(500500, "商品已经秒杀完毕")
-        val REPEATE_SECKILL = CodeMsg(500501, "不能重复秒杀")
+        val KILL_OVER = CodeMsg(500500, "商品已经秒杀完毕")
+        val REPEATE_KILL = CodeMsg(500501, "不能重复秒杀")
     }
 }

@@ -9,7 +9,7 @@ import org.example.domain.User
 @Mapper
 interface UserDao {
 
-    @Select("SELECT * FROM `ss_user` WHERE id = #{id}")
+    @Select("SELECT * FROM `user` WHERE id = #{id}")
     fun getById(@Param("id") id: Long): User
 
     @Insert("INSERT INTO `user`(`id`, `name`) VALUES(#{id}, #{name})")
