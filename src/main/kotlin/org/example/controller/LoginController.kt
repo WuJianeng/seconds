@@ -25,18 +25,9 @@ class LoginController(val userService: UserService) {
 
     @RequestMapping("/do_login")
     @ResponseBody
-    fun  doLogin(response: HttpServletResponse, @Valid loginVo: LoginVo): Result<*> {
+    fun  doLogin(response: HttpServletResponse, @Valid loginVo: LoginVo): Result<String> {
         log.info(loginVo.toString())
-        /*val mobile = loginVo.mobile
-        val password = loginVo.password
-        // verify
-        mobile?:return "error, mobile is null"
-        password?:return "error, password is null"
-        if (!isMobile(mobile)) {
-            return "error, mobile is not illegal"
-        }*/
-        // login
-        userService.login(response, loginVo)
-        return Result.success("login success")
+        val token = userService.login(response, loginVo)
+        return Result.success(token)
     }
 }

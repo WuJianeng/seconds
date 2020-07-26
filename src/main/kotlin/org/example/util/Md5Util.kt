@@ -22,6 +22,6 @@ fun inputPassToDbPass(inputPass: String, salt: String): String {
 }
 
 fun main() {
-    println(inputPassToFormPass("123456")) // d3b1294a61a07da9b49b6e22b2cbd7f9
-    println(formPassToDbPass(inputPassToFormPass("123456"), salt)) // b7797cce01b4b131b433b6acf4add449
+    println("form password: ${inputPassToFormPass("123456")}") // d3b1294a61a07da9b49b6e22b2cbd7f9
+    println("db password: ${inputPassToDbPass("123456", salt)}") // b7797cce01b4b131b433b6acf4add449
 }

@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.ConstructorBinding
 @ConfigurationProperties(prefix = "redis")
 data class RedisConfig(val host: String,
                   val port: Int,
+                  val password: String,
                   val timeout: Int,
                   val poolMaxTotal: Int,
                   val poolMaxIdle: Int,

@@ -18,7 +18,7 @@ class RedisPoolFactory(val redisConfig: RedisConfig){
                 jedisPoolConfig.maxTotal = poolMaxTotal
                 jedisPoolConfig.maxIdle = poolMaxIdle
                 jedisPoolConfig.maxWaitMillis = poolMaxWait
-                JedisPool(jedisPoolConfig, host, port, timeout)
+                JedisPool(jedisPoolConfig, host, port, timeout, password)
             }
     }
 }

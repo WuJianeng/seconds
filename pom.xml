@@ -13,6 +13,7 @@
   <groupId>org.example</groupId>
   <artifactId>seconds</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
 
   <name>seconds</name>
   <!-- FIXME change it to the project's website -->
@@ -141,14 +142,21 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-thymeleaf</artifactId>
     </dependency>
+
   </dependencies>
 
+
   <build>
+
+    <finalName>${project.artifactId}</finalName>
+
     <plugins>
+
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
+
       <plugin>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-maven-plugin</artifactId>
@@ -168,6 +176,7 @@
           </dependency>
         </dependencies>
       </plugin>
+
     </plugins>
   </build>
 </project>

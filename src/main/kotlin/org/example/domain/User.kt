@@ -1,13 +1,13 @@
 package org.example.domain
 
-import java.util.*
+import java.util.Date
 
 
 data class User(val id: Long,
                 val nickname: String,
                 val password: String,
                 val salt: String,
-                val head: String,
+                val head: String?,
                 val registerDate: Date,
                 val lastLoginDate: Date,
                 val loginCount: Int

@@ -6,11 +6,13 @@ import org.example.exception.GlobalException
 import org.example.redis.RedisService
 import org.example.redis.UserKey
 import org.example.result.CodeMsg
+import org.example.util.UserUtil
 import org.example.util.formPassToDbPass
 import org.example.util.uuid
 import org.example.vo.LoginVo
 import org.springframework.stereotype.Service
 import org.springframework.ui.Model
+import java.util.*
 import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletResponse
 
@@ -24,7 +26,7 @@ class UserService(
         return userDao.getById(id)
     }
 
-    fun login(response: HttpServletResponse, loginVo: LoginVo): Boolean {
+    fun login(response: HttpServletResponse, loginVo: LoginVo): String {
         val mobile = loginVo.mobile
         val password = loginVo.password
         val user = getById(mobile.toLong()) ?: throw GlobalException(CodeMsg.MOBILE_NOT_EXIST)
@@ -35,15 +37,18 @@ class UserService(
         if (calPass != dbPass) {
             throw GlobalException(CodeMsg.PASSWORD_ERROR)
         }
-        addCookie(response, user)
-        return true
+
+        // 使用uuid作为token
+        val token = uuid()
+        addCookie(response, token, user)
+        return token
     }
 
     fun getByToken(response: HttpServletResponse, token: String): User? {
-        val user = redisService.get(UserKey.token, token, User::class.java) as User?
+        val user = redisService.get(UserKey.token, token, User::class.java)
         user?.run {
             // 更新有效期
-            addCookie(response, user)
+            addCookie(response, token, user)
         }
         return user
     }
@@ -52,9 +57,8 @@ class UserService(
         public const val COOKIE_NAME_TOKEN:String = "token"
     }
 
-    private fun addCookie(response: HttpServletResponse, user: User) {
-        // 使用uuid作为token，并写入redis中
-        val token = uuid()
+    private fun addCookie(response: HttpServletResponse, token: String, user: User) {
+        // 将 token 写入 redis 中
         redisService.set(UserKey.token, token, user)
         // 设置cookie
         val cookie: Cookie = Cookie(COOKIE_NAME_TOKEN, token)

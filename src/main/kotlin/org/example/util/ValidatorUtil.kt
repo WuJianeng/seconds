@@ -9,7 +9,7 @@ fun isMobile(src: String): Boolean {
     return mather.matches()
 }
 
-fun main() {
-    println("${isMobile("13928374859")}")
-    println("${isMobile("135234567890")}")
-}
+//fun main() {
+//    println("${isMobile("13928374859")}")
+//    println("${isMobile("135234567890")}")
+//}

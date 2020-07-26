@@ -14,6 +14,11 @@ import javax.servlet.http.HttpServletResponse
 
 @Service
 class UserArgumentResolver(val userService: UserService): HandlerMethodArgumentResolver {
+
+    /**
+     * 获取 HttpServletRequest,得到 token
+     * 根据 token 从 redis 中获取用户 User
+     */
     override fun resolveArgument(p0: MethodParameter, p1: ModelAndViewContainer?, p2: NativeWebRequest, p3: WebDataBinderFactory?): Any? {
         val request = p2.getNativeRequest(HttpServletRequest::class.java)
         val response = p2.getNativeResponse(HttpServletResponse::class.java)
@@ -31,8 +36,12 @@ class UserArgumentResolver(val userService: UserService): HandlerMethodArgumentR
         }
     }
 
-    private fun getCookieToken(request: HttpServletRequest, cookieName: String): Any? {
+    private fun getCookieToken(request: HttpServletRequest, cookieName: String): String? {
         val cookies = request.cookies
+        if (cookies == null || cookies.isEmpty()) {
+            return null
+        }
+
         for (cookie in cookies) {
             if (cookie.name == cookieName) {
                 return cookie.value
